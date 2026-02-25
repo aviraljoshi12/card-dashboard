@@ -8,7 +8,7 @@ This project demonstrates clean UI design, modular architecture, and efficient d
 
 ## 🚀 Live Demo
 
-👉 https://card-dashboard.vercel.app
+👉 https://card-dashboard-sage.vercel.app/
 
 ---
 
@@ -157,7 +157,7 @@ Infinite scroll loads additional pages automatically.
 ### 1️⃣ Clone the repository
 
 ```
-git clone https://github.com/yourusername/card-dashboard.git
+git clone https://github.com/aviraljoshi12/card-dashboard.git
 ```
 
 ### 2️⃣ Navigate into project
