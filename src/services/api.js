@@ -1,9 +1,15 @@
 import { mockCards } from "./mockData";
 
-export const fetchCards = () => {
+export const fetchCards = (page = 1, limit = 10) => {
   return new Promise((res) => {
     setTimeout(() => {
-      res(mockCards);
-    }, 500);
+      const start = (page - 1) * limit;
+      const end = start + limit;
+
+      res({
+        data: mockCards.slice(start, end),
+        hasMore: end < mockCards.length,
+      });
+    }, 600);
   });
 };

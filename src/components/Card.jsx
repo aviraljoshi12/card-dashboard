@@ -71,9 +71,11 @@ export default function Card({ card }) {
           <span>Available</span>
         </div>
         <div className="flex justify-between text-sm font-bold">
-          <span className="text-pink-600">${card.spent.value}</span>
+          <span className="text-pink-600">
+            {card.spent.value} {card.spent.currency}
+          </span>
           <span className="text-green-600">
-            ${card.available_to_spend.value}
+            {card.available_to_spend.value} {card.available_to_spend.currency}
           </span>
         </div>
       </div>
@@ -85,7 +87,9 @@ export default function Card({ card }) {
           {isBurner ? (
             <>Expiry: {new Date(card.expiry).toLocaleDateString()}</>
           ) : (
-            <>Limit: ${card.limit}</>
+            <>
+              Limit: {card.limit} {card.spent.currency}
+            </>
           )}
         </div>
 
