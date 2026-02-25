@@ -3,13 +3,26 @@ import { fetchCards } from "../services/api";
 import Card from "../components/Card";
 
 export default function Dashboard() {
-  const [cards, setCards] = useState([]);
+  const CURRENT_USER = "123";
 
-  console.log(cards);
+  const [cards, setCards] = useState([]);
+  const [activeTab, setActiveTab] = useState("your");
 
   const loadCards = async () => {
     const data = await fetchCards();
     setCards(data);
+  };
+
+  const getFilteredCards = () => {
+    if (activeTab === "your") {
+      return cards.filter((card) => card.owner_id === CURRENT_USER);
+    }
+
+    if (activeTab === "blocked") {
+      return cards.filter((card) => card.status === "blocked");
+    }
+
+    return cards;
   };
 
   useEffect(() => {
@@ -22,12 +35,20 @@ export default function Dashboard() {
       <h1 className="text-2xl font-semibold mb-6">Card Dashboard</h1>
 
       {/* Tabs Placeholder */}
-      <div className="flex gap-4 border-b pb-3 mb-6 ">
-        <button className="font-medium text-blue-600 border-b-2 border-blue-600 ">
-          Your
-        </button>
-        <button className="text-gray-500">All</button>
-        <button className="text-gray-500">Blocked</button>
+      <div className="flex gap-6 border-b pb-3 mb-6 ">
+        {["your", "all", "blocked"].map((tab) => (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`pb-2 capitalize ${
+              activeTab === tab
+                ? "text-blue-600 border-b-2 border-blue-600 font-medium"
+                : "text-gray-500"
+            }`}
+          >
+            {tab}
+          </button>
+        ))}
       </div>
 
       {/* Filters Row */}
@@ -49,7 +70,7 @@ export default function Dashboard() {
 
       {/* Cards */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {cards.map((card) => (
+        {getFilteredCards().map((card) => (
           <Card key={card.id} card={card} />
         ))}
       </div>
