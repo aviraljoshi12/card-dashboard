@@ -1,4 +1,20 @@
+import { useEffect, useState } from "react";
+import { fetchCards } from "../services/api";
+
 export default function Dashboard() {
+  const [cards, setCards] = useState([]);
+
+  console.log(cards);
+
+  const loadCards = async () => {
+    const data = await fetchCards();
+    setCards(data);
+  };
+
+  useEffect(() => {
+    loadCards();
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       {/* Header */}
@@ -30,9 +46,13 @@ export default function Dashboard() {
         </select>
       </div>
 
-      {/* Card grid placeholder */}
+      {/* Cards */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Cards will come here */}
+        {cards.map((card) => (
+          <div key={card.id} className="bg-white p-4 rounded-xl shadow">
+            {card.name}
+          </div>
+        ))}
       </div>
     </div>
   );
