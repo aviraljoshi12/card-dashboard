@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchCards } from "../services/api";
+import Card from "../components/Card";
 
 export default function Dashboard() {
   const [cards, setCards] = useState([]);
@@ -49,9 +50,7 @@ export default function Dashboard() {
       {/* Cards */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {cards.map((card) => (
-          <div key={card.id} className="bg-white p-4 rounded-xl shadow">
-            {card.name}
-          </div>
+          <Card key={card.id} card={card} />
         ))}
       </div>
     </div>
